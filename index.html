@@ -1,52 +1,106 @@
 <html>
-    <head>
-        <title>Pomodoro Timer</title>
-        <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <h1>Pomodoro Timer</h1>
-        session length: 25m
-        break length: 5m
-        <p id="now"></p>
-        <p id="demo"></p>
-        <button id="start">Start timer</button>
-    </body>
+		<head>
+				<title>Pomocado</title>
+				<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+				<script src="https://code.jquery.com/jquery-3.1.1.min.js" 
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+				<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+		</head>
+		<body>
+				<h1>Pomocado</h1>
+				session length: <select id="sessionLength">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="25">25</option>
+				</select>
+				<br/>
 
-    <script>
-    // Set the date we're counting down to
-    $("#start").click(function(){
-        var countDownDate = new Date().getTime() + (1000 * 60)*25;
-        console.log(countDownDate)
+				break length:
+				<select id="breakLength">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="25">25</option>
+				</select>
 
-        // Update the count down every 1 second
-        var x = setInterval(function() {
+				<div id="avocado"></div>
+				
+				<p id="timer"></p>
+				<a class="btn green" id="start">Start timer</a>
+				<a class="btn red" id="stop">Stop timer</a>
+				<a class="btn purple" id="restart">Restart timer</a>
+				<a class="btn yellow" id="resume">Resume timer</a>
+		</body>
 
-          // Get todays date and time
-          var now = new Date().getTime();
+		<script>
+var running = false;
+var stop = false;
+var endTime;
+var sessionLength;
+var timeRemaining;
+var pauseTime;
+// Set the date we're counting down to
 
-          // Find the distance between now an the count down date
-          distance = countDownDate - now;
+$('#stop').click(function(){
+		stop = true;
+		console.log("stop");
+});
 
-          // Time calculations for days, hours, minutes and seconds
-          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+$('#restart').click(function(){
+		stop = true;
+		restart = true;	
+		endTime = new Date().getTime() + (1000 * 60)*$("#sessionLength").val();
+		$('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
+});
 
-          // Display the result in the element with id="demo"
-          document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-          + minutes + "m " + seconds + "s ";
-          document.getElementById("now").innerHTML = now
+$('#resume').click(function(){
+		restart = false;
+		stop = false;
 
-          // If the count down is finished, write some text
-          if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
-          }
-        }, 1000);
-    })
-    </script>
+		console.log(new Date().getTime() - pauseTime);
+		startTimer(sessionLength + (new Date().getTime() - pauseTime));
+});
+
+$("#start").click(function(){
+		stop = false;
+		restart = false;
+		console.log("restart");
+		sessionLength = $('#sessionLength').val();
+		var endTime = new Date().getTime() + (1000 * 60)*sessionLength;
+		startTimer(endTime);
+});
+
+function startTimer(endTime){
+		running = true;
+//		endTime = new Date().getTime() + (1000 * 60)*time;
+
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+				// Get todays date and time
+				var now = new Date().getTime();
+
+				// Find the distance between now an the count down date
+				distance = endTime - now;
+
+				sessionLength = endTime;
+
+				// Time calculations for days, hours, minutes and seconds
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+				// Display the result in the element with id="timer"
+				$('#timer').html(minutes + "m " + seconds + "s ");
+
+				// If the count down is finished, write some text
+				if (distance < 0) {
+						clearInterval(x);
+						document.getElementById("timer").innerHTML = "EXPIRED";
+				}
+
+				if (stop == true) {
+						pauseTime = new Date().getTime();
+						clearInterval(x);
+				}
+		}, 1000);
+}
+		</script>
 </html>
