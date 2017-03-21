@@ -1,3 +1,9 @@
+/*
+ * Simon Anatole Orlovsky
+ * Pomodoro Timer
+ * 19 March 2017
+ */
+
 var running = false;
 var stop = false;
 var started = false;
@@ -7,88 +13,113 @@ var timeRemaining;
 var pauseTime;
 var type = "pomo";
 
-$('#restart').click(function(){
-		stop = true;
-		started = false;
-		restart = true;	
+function reset(type){
+	stop = true;
+	started = false;
+	restart = true;	
+	if (type == "pomo"){
 		endTime = new Date().getTime() + (1000 * 60)*$("#sessionLength").val();
+	} 
+	
+	else {
+		endTime = new Date().getTime() + (1000 * 60)*$("#breakLength").val();
+	}
+
+	if (type == 'pomo'){
 		$('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
+		$('#timer').css('color', 'green');
 		$('#start').html('Start Timer');
-});
+		$('#start').attr('class', 'btn green');
+		running = false;
+	} else {
+		$('#timer').html($("#breakLength").val() + "m " + "0" + "s ");
+		$('#timer').css('color', 'red');
+		$('#start').html('Start Timer');
+		$('#start').attr('class', 'btn green');
+		running = false;
+	}
+}
 
-$("#start").click(function(){
-		if (running == false && started == false) {
-				$('#start').html('Stop Timer');
-				$('#start').attr('class', 'btn red');
-				stop = false;
-				restart = false;
-				sessionLength = $('#sessionLength').val();
-				var endTime = new Date().getTime() + (1000 * 60)*sessionLength;
-				startTimer(endTime);
-				running = true;
-				started = true;
-		} else if (running == false && started == true) {
-				$('#start').html('Stop Timer');
-				$('#start').attr('class', 'btn red');
-				restart = false;
-				stop = false;
-				startTimer(sessionLength + (new Date().getTime() - pauseTime));
-		} else {
-				$('#stop').attr('id', 'start');
-				$('#start').html('Resume Timer');
-				$('#start').attr('class', 'btn green');
-				stop = true;
-				running = false;
-		}
-});
-
-function startTimer(endTime){
-		if (type == "pomo") {
-				$("#timer").css("color", "green");	
-		} else {
-				$("#timer").css("color", "red");
-		}
+function start(){
+	if (running == false && started == false) {
+		$('#start').html('Stop Timer');
+		$('#start').attr('class', 'btn red');
+		stop = false;
+		restart = false;
+		sessionLength = $('#sessionLength').val();
+		var endTime = new Date().getTime() + (1000 * 60)*sessionLength;
+		startTimer(endTime);
 		running = true;
+		started = true;
+	} else if (running == false && started == true) {
+		$('#start').html('Stop Timer');
+		$('#start').attr('class', 'btn red');
+		restart = false;
+		stop = false;
+		startTimer(sessionLength + (new Date().getTime() - pauseTime));
+	} else {
+		$('#stop').attr('id', 'start');
+		$('#start').html('Resume Timer');
+		$('#start').attr('class', 'btn green');
+		stop = true;
+		running = false;
+	}
 
-		// Update the count down every 1 second
-		var x = setInterval(function() {
-				// Get todays date and time
-				var now = new Date().getTime();
+}
 
-				// Find the distance between now an the end time 
-				distance = endTime - now;
+$('#restart').click(function() {
+	type = "pomo";
+	reset(type);
+});
 
-				sessionLength = endTime;
+$("#start").click(function() {
+	start();
+});
 
-				// Time calculations for minutes and seconds
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+function startTimer(endTime) {
 
-				// Display the result in the element with id="timer"
-				$('#timer').html(minutes + "m " + seconds + "s ");
-				
-				if (stop == true) {
-						pauseTime = new Date().getTime();
-						clearInterval(x);
-				}
-				// If the count down is finished, write some text
-				if (distance < 0) {
-						console.log("zero");
-						clearInterval(x);
-						if (type == "pomo") {
-								type = "break";
-								sessionlength = $('#breaklength').val();
-								endTime = new Date().getTime() + (1000 * 60)*sessionLength;
-								startTimer(endTime)
+	running = true;
 
-						} else {
-								type = "pomo";
-								sessionlength = $('#sessionlength').val();
-								endTime = new Date().getTime() + (1000 * 60)*sessionLength;
-								startTimer(endTime)
-						}
-				}
+	// Update the count down every 1 second
+	var x = setInterval(function() {
+		// Get todays date and time
+		var now = new Date().getTime();
 
-				
-		}, 1000);
+		// Find the distance between now an the end time 
+		distance = endTime - now;
+
+		sessionLength = endTime;
+
+		// Time calculations for minutes and seconds
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		// Display the result in the element with id="timer"
+		if (running == true){
+			$('#timer').html(minutes + "m " + seconds + "s ");
+		}
+
+		if (stop == true) {
+			pauseTime = new Date().getTime();
+			clearInterval(x);
+		}
+		// If the count down is finished, write some text
+		if (distance < 0) {
+			if (type == "pomo") {
+				type = "break";
+			} else {
+				type = "pomo";
+			}
+			$('#stop').attr('id', 'start');
+			$('#start').html('Start Timer');
+			$('#start').attr('class', 'btn green');
+			running = false;
+			started = false;
+			clearInterval(x);
+			reset(type);
+			start();
+		}
+
+
+	}, 1000);
 }

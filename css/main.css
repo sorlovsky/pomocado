@@ -145,7 +145,7 @@ p {
 		position: relative;
 		top: 44%;
 		left: 21%;  
-		content: "";
+		content: "hello";
 		display: block;
 		background-color: #ABC637;
 		border-radius: 100%;
