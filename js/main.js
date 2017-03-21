@@ -13,6 +13,7 @@ var timeRemaining;
 var pauseTime;
 var type = "pomo";
 
+$('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
 function reset(type){
 	stop = true;
 	started = false;

@@ -1,35 +1,80 @@
 <html>
 	<head>
 		<title>Pomocado 🍅</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
 	</head>
 	<body>
-		<h1>Pomocado 🍅</h1>
-		session length: <select id="sessionLength">
-			<option value="1">1</option>
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="25">25</option>
-		</select>
-		<br/>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Pomocado 🍅</a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a data-toggle="modal" data-target="#myModal"> Settings</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+		<div class="heading">
 
-		break length:
-		<select id="breakLength">
-			<option value="1">1</option>
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="25">25</option>
-		</select>
+			<h1><p id="timer"></p></h1>
+			session length: <select id="sessionLength">
+				<option value="1">1</option>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option selected="selectd" value="25">25</option>
+			</select>
+			<br/>
 
+			break length:
+			<select id="breakLength">
+				<option value="1">1</option>
+				<option selected="selected" value="5">5</option>
+				<option value="10">10</option>
+				<option value="25">25</option>
+			</select>
+
+
+
+		</div>
 		<audio id="beep" src="/res/sound.wav"></audio>
 
 		<!--<div id="avocado"></div>-->
 
-		<p id="timer"></p>
 		<a class="btn green" id="start">Start timer</a>
 		<a class="btn purple" id="restart">Restart timer</a>
 	</body>
-	<script src="js/main.js"></script>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					...
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </html>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="js/main.js"></script>
