@@ -105,6 +105,7 @@ function startTimer(endTime) {
 		}
 		// If the count down is finished, write some text
 		if (distance < 0) {
+			document.getElementById('beep').play()
 			if (type == "pomo") {
 				type = "break";
 			} else {
