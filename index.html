@@ -1,97 +1,116 @@
 <html>
-	<head>
-		<title>Pomocado 🍅</title>
-		<meta name="description" content="Pomodoro Technique Tool">
-		<meta name="keywords" content="Pomodoro,Productivity,Tool,Focus">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
-	</head>
-	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Pomocado 🍅</a>
-				</div>
-				<div id="navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li><a data-toggle="modal" data-target="#settingsModal"> Settings</a></li>
-						<li><a data-toggle="modal" data-target="#aboutModal">About Pomodoro</a> </li>
-					</ul>
-				</div><!--/.nav-collapse -->
-			</div>
-		</nav>
-		<div class="heading">
+    <head>
+        <title>Pomocado 🍅</title>
+        <meta name="description" content="Pomodoro Technique Tool">
+        <meta name="keywords" content="Pomodoro,Productivity,Tool,Focus">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand"> Pomocado 🍅</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a data-toggle="modal" data-target="#settingsModal"> Settings</a></li>
+                        <li><a data-toggle="modal" data-target="#aboutModal">About Pomodoro</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-			<p id="timer" class="timer"></p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 jumbotron">
+                    <div>
+                        <h1 id="timer" class="timer"></h1>
+                        <a class="btn green" id="start">Start timer</a>
+                        <a class="btn purple" id="restart">Restart timer</a>
 
+                    </div>
 
-		</div>
-		<audio id="beep" src="/res/sound.wav"></audio>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+        <audio id="beep" src="/res/sound.wav"></audio>
 
-		<a class="btn green" id="start">Start timer</a>
-		<a class="btn purple" id="restart">Restart timer</a>
-	</body>
-	<!-- Modal -->
-	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h1 class="modal-title" id="settingsModalLabel">Settings</h1>
-				</div>
-				<div class="modal-body">
-					session length: <select id="sessionLength">
-						<option value="1">1</option>
-						<option value="5">5</option>
-						<option value="10">10</option>
-						<option selected="selectd" value="25">25</option>
-					</select>
-					<br/>
+    </body>
+    <!-- Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h1 class="modal-title" id="settingsModalLabel">Settings</h1>
+                </div>
+                <div class="modal-body">
+                    session length: <select id="sessionLength">
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option selected="selectd" value="25">25</option>
+                    </select>
+                    <br/>
 
-					break length:
-					<select id="breakLength">
-						<option value="1">1</option>
-						<option selected="selected" value="5">5</option>
-						<option value="10">10</option>
-						<option value="25">25</option>
-					</select>
-				</div>
-				<button type="button" class="btn yellow" data-dismiss="modal">Save and Close</button>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h1 class="modal-title" id="settingsModalLabel">About</h1>
-				</div>
-				<div class="modal-body">
-					Q. What is Pomodoro Technique? <br/>
-					A. The time management technique created by Francesco Cirillo for a	more productive way to work and study. For more information, click here. <br/>
-					<button type="button" class="btn yellow" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                    break length:
+                    <select id="breakLength">
+                        <option value="1">1</option>
+                        <option selected="selected" value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+                <button type="button" class="btn yellow" data-dismiss="modal">Save and Close</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h1 class="modal-title" id="settingsModalLabel">About</h1>
+                </div>
+                <div class="modal-body">
+                    Q. What is Pomodoro Technique? <br/>
+                    A. The time management technique created by Francesco Cirillo for a	more productive way to work and study. For more information, click here. <br/>
+                    <button type="button" class="btn yellow" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<footer class="footer">
-			<div class="container">
-				<p class="text-muted">Made with 🍅 in MN</p>
-			</div>
-		</footer>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Made with 🍅 in MN</p>
+        </div>
+    </footer>
 </html>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="js/main.js"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-96020236-1', 'auto');
+ga('send', 'pageview');
+
+</script>
