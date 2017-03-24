@@ -51,7 +51,11 @@ function start(){
         $('#start').attr('class', 'btn red');
         stop = false;
         restart = false;
-        sessionLength = $('#sessionLength').val();
+        if (type=="pomo"){
+            sessionLength = $('#sessionLength').val();
+        } else {
+            sessionLength = $('#breakLength').val();
+        }
         var endTime = new Date().getTime() + (1000 * 60)*sessionLength;
         startTimer(endTime);
         running = true;
