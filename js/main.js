@@ -15,9 +15,10 @@ var type = "pomo";
 
 // setting initial timer
 $('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
-
+$('#timer').css("color","#55acee");
 // clear timer
 function reset(type){
+    type = "pomo";
     stop = true;
     started = false;
     restart = true;	
@@ -31,7 +32,7 @@ function reset(type){
 
     if (type == 'pomo'){
         $('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
-        $('#timer').css('color', 'green');
+        $('#timer').css('color', '#55acee');
         $('#start').html('Start Timer');
         $('#start').attr('class', 'btn green');
         running = false;
@@ -45,7 +46,7 @@ function reset(type){
 }
 
 // stop and start timer
-function start(){
+function toggleTimer(){
     if (running == false && started == false) {
         $('#start').html('Stop Timer');
         $('#start').attr('class', 'btn red');
@@ -77,12 +78,11 @@ function start(){
 }
 
 $('#restart').click(function() {
-    type = "pomo";
     reset(type);
 });
 
 $("#start").click(function() {
-    start();
+    toggleTimer();
 });
 
 function startTimer(endTime) {
@@ -139,13 +139,13 @@ $(document).keydown(function(evt){
     // <c-s> for settings
     if (evt.keyCode==83 && (evt.ctrlKey)){
         evt.preventDefault();
-        $('#settingsModal').modal('toggle')
+        $('#settingsModal').modal('toggleTimer')
     }
 
     // Space key to start and stop
     if (evt.keyCode==32) {
         evt.preventDefault();
-        start();
+        toggleTimer();
     }
 
     // <c-r> for restart
