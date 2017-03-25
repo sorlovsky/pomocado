@@ -34,13 +34,13 @@ function reset(type){
         $('#timer').html($("#sessionLength").val() + "m " + "0" + "s ");
         $('#timer').css('color', '#55acee');
         $('#start').html('Start Timer');
-        $('#start').attr('class', 'btn green');
+        $('#start').attr('class', 'btn btn-primary');
         running = false;
     } else {
         $('#timer').html($("#breakLength").val() + "m " + "0" + "s ");
         $('#timer').css('color', 'red');
         $('#start').html('Start Timer');
-        $('#start').attr('class', 'btn green');
+        $('#start').attr('class', 'btn btn-primary');
         running = false;
     }
 }
@@ -49,7 +49,7 @@ function reset(type){
 function toggleTimer(){
     if (running == false && started == false) {
         $('#start').html('Stop Timer');
-        $('#start').attr('class', 'btn red');
+        $('#start').attr('class', 'btn btn-danger');
         stop = false;
         restart = false;
         if (type=="pomo"){
@@ -63,14 +63,14 @@ function toggleTimer(){
         started = true;
     } else if (running == false && started == true) {
         $('#start').html('Stop Timer');
-        $('#start').attr('class', 'btn red');
+        $('#start').attr('class', 'btn btn-primary');
         restart = false;
         stop = false;
         startTimer(sessionLength + (new Date().getTime() - pauseTime));
     } else {
         $('#stop').attr('id', 'start');
         $('#start').html('Resume Timer');
-        $('#start').attr('class', 'btn green');
+        $('#start').attr('class', 'btn btn-primary');
         stop = true;
         running = false;
     }
@@ -122,12 +122,12 @@ function startTimer(endTime) {
             }
             $('#stop').attr('id', 'start');
             $('#start').html('Start Timer');
-            $('#start').attr('class', 'btn green');
+            $('#start').attr('class', 'btn btn-primary');
             running = false;
             started = false;
             clearInterval(x);
             reset(type);
-            start();
+            toggleTimer();
         }
 
 
